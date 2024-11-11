@@ -1,7 +1,7 @@
 package com.vestas.libraryManagement.security;
 
-import com.vestas.libraryManagement.services.JwtService;
-import com.vestas.libraryManagement.services.CustomUserDetailService;
+import com.vestas.libraryManagement.service.JwtService;
+import com.vestas.libraryManagement.service.CustomUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

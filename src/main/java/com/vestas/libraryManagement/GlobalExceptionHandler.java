@@ -1,6 +1,6 @@
 package com.vestas.libraryManagement;
 
-import com.vestas.libraryManagement.exceptions.BookNotFoundException;
+import com.vestas.libraryManagement.exception.BookNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
