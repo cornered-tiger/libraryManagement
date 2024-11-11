@@ -35,7 +35,7 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/register/**", "/rest/authenticate").permitAll();
+                    registry.requestMatchers("/rest/authenticate").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

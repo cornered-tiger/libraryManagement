@@ -1,6 +1,6 @@
 package com.vestas.libraryManagement.facade;
 
-import com.vestas.libraryManagement.dto.request.CreateBookRequest;
+import com.vestas.libraryManagement.dto.request.BookRequest;
 import com.vestas.libraryManagement.dto.response.BookBorrowHistoryDTO;
 import com.vestas.libraryManagement.dto.response.BookDTO;
 import com.vestas.libraryManagement.entity.User;
@@ -14,19 +14,19 @@ public interface LibraryFacade {
 
     List<BookDTO> getAvailableBooks();
 
-    BookDTO getBookById(Long bookId) throws BookNotFoundException;
+    BookDTO getBookById(int bookId) throws BookNotFoundException;
 
-    BookDTO createBook(CreateBookRequest request);
+    BookDTO createBook(BookRequest request);
 
-    BookDTO updateBook(Long bookId, CreateBookRequest request) throws BookNotFoundException;
+    BookDTO updateBook(int bookId, BookRequest request) throws BookNotFoundException;
 
-    void deleteBook(Long bookId);
+    void deleteBook(int bookId);
 
-    void borrowBook(Long bookId, Long userId);
+    void borrowBook(int bookId, int userId);
 
-    void returnBook(final Long bookId, Long userId);
+    void returnBook(final int bookId, int userId);
 
-    List<BookBorrowHistoryDTO> getBorrowHistory(Long bookId);
+    List<BookBorrowHistoryDTO> getBorrowHistory(int bookId);
 
     List<User> createUser(User user);
 

@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BookBorrowHistoryRepository extends JpaRepository<BookBorrowHistory, Long> {
+public interface BookBorrowHistoryRepository extends JpaRepository<BookBorrowHistory, Integer> {
 
-    List<BookBorrowHistory> findByBookId(Long bookId);
+    List<BookBorrowHistory> findByBookId(int bookId);
 
     Optional<BookBorrowHistory> findTopByBookAndUserAndReturnDateIsNullOrderByBorrowDateDesc(Book book, User user);
 

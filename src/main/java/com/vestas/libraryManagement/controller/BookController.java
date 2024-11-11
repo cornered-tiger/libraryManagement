@@ -1,7 +1,7 @@
 package com.vestas.libraryManagement.controller;
 
 import com.vestas.libraryManagement.dto.request.BorrowBookRequest;
-import com.vestas.libraryManagement.dto.request.CreateBookRequest;
+import com.vestas.libraryManagement.dto.request.BookRequest;
 import com.vestas.libraryManagement.dto.request.ReturnBookRequest;
 import com.vestas.libraryManagement.dto.response.BookBorrowHistoryDTO;
 import com.vestas.libraryManagement.dto.response.BookDTO;
@@ -37,7 +37,7 @@ public class BookController {
 
     @Secured("ROLE_OWNER")
     @PostMapping
-    public ResponseEntity<BookDTO> create(@RequestBody @Valid final CreateBookRequest request) {
+    public ResponseEntity<BookDTO> create(@RequestBody @Valid final BookRequest request) {
         final var createdBook = libraryFacade.createBook(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -48,7 +48,7 @@ public class BookController {
 
     @Secured("ROLE_OWNER")
     @PutMapping("/{bookId}")
-    public ResponseEntity<BookDTO> update(@PathVariable final Long bookId, @RequestBody @Valid final CreateBookRequest request) throws BookNotFoundException {
+    public ResponseEntity<BookDTO> update(@PathVariable final int bookId, @RequestBody @Valid final BookRequest request) throws BookNotFoundException {
         return ResponseEntity.ok().body(libraryFacade.updateBook(bookId, request));
     }
 
@@ -66,34 +66,34 @@ public class BookController {
 
     @Secured({"ROLE_OWNER", "ROLE_CLIENT"})
     @GetMapping("/{bookId}")
-    public ResponseEntity<BookDTO> getBookById(@PathVariable final Long bookId) throws BookNotFoundException {
+    public ResponseEntity<BookDTO> getBookById(@PathVariable final int bookId) throws BookNotFoundException {
         return ResponseEntity.ok().body(libraryFacade.getBookById(bookId));
     }
 
     @Secured("ROLE_OWNER")
     @DeleteMapping("/{bookId}")
-    public ResponseEntity<Void> delete(@PathVariable final Long bookId) throws BookNotFoundException {
+    public ResponseEntity<Void> delete(@PathVariable final int bookId) throws BookNotFoundException {
         libraryFacade.deleteBook(bookId);
         return ResponseEntity.ok().build();
     }
 
-    @Secured("ROLE_CLIENT")
+    @Secured({"ROLE_CLIENT"})
     @PostMapping("/{bookId}/borrow")
-    public ResponseEntity<Void> borrow(@PathVariable final Long bookId, @RequestBody final BorrowBookRequest request) {
+    public ResponseEntity<Void> borrow(@PathVariable final int bookId, @RequestBody final BorrowBookRequest request) {
         libraryFacade.borrowBook(bookId, request.getUserId());
         return ResponseEntity.ok().build();
     }
 
-    @Secured("ROLE_CLIENT")
+    @Secured({"ROLE_CLIENT"})
     @PostMapping("/{bookId}/return")
-    public ResponseEntity<Void> returnBook(@PathVariable final Long bookId, @RequestBody final ReturnBookRequest request) {
+    public ResponseEntity<Void> returnBook(@PathVariable final int bookId, @RequestBody final ReturnBookRequest request) {
         libraryFacade.returnBook(bookId, request.getUserId());
         return ResponseEntity.ok().build();
     }
 
     @Secured("ROLE_OWNER")
     @GetMapping("/{bookId}/borrow/history")
-    public ResponseEntity<List<BookBorrowHistoryDTO>> getBorrowHistory(@PathVariable final Long bookId) {
+    public ResponseEntity<List<BookBorrowHistoryDTO>> getBorrowHistory(@PathVariable final int bookId) {
         return ResponseEntity.ok().body(libraryFacade.getBorrowHistory(bookId));
     }
 }

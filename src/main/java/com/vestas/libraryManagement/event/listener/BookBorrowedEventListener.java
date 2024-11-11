@@ -16,9 +16,6 @@ public class BookBorrowedEventListener {
         this.bookRepository = bookRepository;
     }
 
-    /**
-     * For demo purpose only
-     */
     @EventListener
     public void listen(final BookBorrowedEvent event) {
         Optional.of(event.getBook())

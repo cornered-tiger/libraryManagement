@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class BookDTO {
-    private Long id;
+    private int id;
     private String isbn;
     @NotBlank
     private String title;

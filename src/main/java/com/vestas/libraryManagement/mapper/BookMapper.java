@@ -1,6 +1,6 @@
 package com.vestas.libraryManagement.mapper;
 
-import com.vestas.libraryManagement.dto.request.CreateBookRequest;
+import com.vestas.libraryManagement.dto.request.BookRequest;
 import com.vestas.libraryManagement.dto.response.BookDTO;
 import com.vestas.libraryManagement.entity.Book;
 import org.modelmapper.ModelMapper;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * It converts entity objects to DTOs and vice versa to facilitate data transfer without revealing internal structures.
 
  * In this demo, all fields from the entity are mapped onto the corresponding DTOs.
- * However, in a production application, typically only a subset of fields would be mapped based on specific requirements.
+ * However, in a real world applications, typically only a subset of fields would be mapped based on specific requirements.
  */
 
 @Component
@@ -23,15 +23,11 @@ public class BookMapper {
         this.modelMapper = modelMapper;
     }
 
-    public Book mapRequestToEntity(final CreateBookRequest request) {
+    public Book mapRequestToEntity(final BookRequest request) {
         return modelMapper.map(request, Book.class);
     }
 
     public BookDTO mapEntityToDTO(final Book book) {
         return modelMapper.map(book, BookDTO.class);
-    }
-
-    public Book mapDTOToEntity(final BookDTO bookDTO) {
-        return modelMapper.map(bookDTO, Book.class);
     }
 }

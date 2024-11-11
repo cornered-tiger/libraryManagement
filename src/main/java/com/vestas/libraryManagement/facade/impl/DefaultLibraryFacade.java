@@ -1,6 +1,6 @@
 package com.vestas.libraryManagement.facade.impl;
 
-import com.vestas.libraryManagement.dto.request.CreateBookRequest;
+import com.vestas.libraryManagement.dto.request.BookRequest;
 import com.vestas.libraryManagement.dto.response.BookBorrowHistoryDTO;
 import com.vestas.libraryManagement.dto.response.BookDTO;
 import com.vestas.libraryManagement.entity.BookBorrowHistory;
@@ -47,22 +47,22 @@ public class DefaultLibraryFacade implements LibraryFacade {
     }
 
     @Override
-    public BookDTO createBook(final CreateBookRequest createBookRequest) {
+    public BookDTO createBook(final BookRequest bookRequest) {
 
-        final var book = bookRepository.save(bookMapper.mapRequestToEntity(createBookRequest));
+        final var book = bookRepository.save(bookMapper.mapRequestToEntity(bookRequest));
         return bookMapper.mapEntityToDTO(book);
     }
 
     @Override
-    public BookDTO updateBook(final Long bookId, final CreateBookRequest request) throws BookNotFoundException {
+    public BookDTO updateBook(final int bookId, final BookRequest request) throws BookNotFoundException {
         final var book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
 
         book.setIsbn(request.getIsbn());
         book.setTitle(request.getTitle());
         book.setPrice(request.getPrice());
         book.setAuthor(request.getAuthor());
-        bookRepository.save(book);
 
+        bookRepository.save(book);
         return bookMapper.mapEntityToDTO(book);
     }
 
@@ -77,18 +77,18 @@ public class DefaultLibraryFacade implements LibraryFacade {
     }
 
     @Override
-    public BookDTO getBookById(final Long bookId) throws BookNotFoundException {
+    public BookDTO getBookById(final int bookId) throws BookNotFoundException {
         return bookRepository.findById(bookId).map(bookMapper::mapEntityToDTO).orElseThrow(() -> new BookNotFoundException(bookId));
     }
 
     @Override
-    public void deleteBook(final Long bookId) {
+    public void deleteBook(final int bookId) {
         bookRepository.deleteById(bookId);
     }
 
     @Transactional
     @Override
-    public void borrowBook(final Long bookId, final Long userId) {
+    public void borrowBook(final int bookId, final int userId) {
         final var book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
         final var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         if (!book.isAvailable()) {
@@ -106,7 +106,7 @@ public class DefaultLibraryFacade implements LibraryFacade {
 
     @Transactional
     @Override
-    public void returnBook(final Long bookId, final Long userId) {
+    public void returnBook(final int bookId, final int userId) {
         final var book = bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
         final var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         final var bookBorrowHistory = bookBorrowHistoryRepository.findTopByBookAndUserAndReturnDateIsNullOrderByBorrowDateDesc(book, user).orElseThrow(() -> new BookNotFoundException(bookId));
@@ -119,7 +119,7 @@ public class DefaultLibraryFacade implements LibraryFacade {
     }
 
     @Override
-    public List<BookBorrowHistoryDTO> getBorrowHistory(final Long bookId) {
+    public List<BookBorrowHistoryDTO> getBorrowHistory(final int bookId) {
         return bookBorrowHistoryRepository.findByBookId(bookId).stream().map(bookBorrowHistoryMapper::mapEntityToDTO).toList();
     }
 
