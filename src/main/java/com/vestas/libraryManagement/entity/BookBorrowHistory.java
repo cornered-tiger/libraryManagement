@@ -1,8 +1,11 @@
 package com.vestas.libraryManagement.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,12 +32,19 @@ public class BookBorrowHistory {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private int id;
     @ManyToOne(fetch = EAGER, optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
+    @JoinColumn(name = "book_id")
     @ManyToOne(fetch = EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Book book;
+    @Column(name = "borrow_date")
     private LocalDate borrowDate;
+    @Column(name = "return_date")
     private LocalDate returnDate;
+    @Column(name = "is_late_return")
+    private boolean lateReturn;
 }

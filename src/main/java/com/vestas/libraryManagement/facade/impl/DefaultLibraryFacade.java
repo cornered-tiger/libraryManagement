@@ -114,7 +114,7 @@ public class DefaultLibraryFacade implements LibraryFacade {
         bookBorrowHistoryRepository.save(bookBorrowHistory);
         book.setAvailable(true);
         bookRepository.save(book);
-        eventPublisher.publishEvent(new BookReturnedEvent(eventPublisher, book));
+        eventPublisher.publishEvent(new BookReturnedEvent(eventPublisher, bookBorrowHistory));
 
     }
 

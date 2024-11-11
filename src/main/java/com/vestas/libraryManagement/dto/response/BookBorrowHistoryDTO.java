@@ -13,8 +13,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class BookBorrowHistoryDTO {
-    private Long id;
-    private Long userId;
+    private int id;
+    private int userId;
     private LocalDate borrowDate;
     private LocalDate returnDate;
+    private boolean lateReturn;
 }
