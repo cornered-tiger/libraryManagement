@@ -1,7 +1,7 @@
 CREATE TABLE users
 (
     id integer NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1),
-    name text NOT NULL CHECK (length(name) BETWEEN 1 AND 254),
+    name text NOT NULL CHECK (length(name) BETWEEN 1 AND 254) UNIQUE,
     password text NOT NULL,
     role text NOT NULL
 );
