@@ -37,24 +37,6 @@
 			"response": []
 		},
 		{
-			"name": "Create User",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{user_name}}\",\n    \"password\": \"{{user_password}}\",\n    \"role\": \"{{user_role}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "localhost:8080/register/user"
-			},
-			"response": []
-		},
-		{
 			"name": "Save Book",
 			"request": {
 				"auth": {
