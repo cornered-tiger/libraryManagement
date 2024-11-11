@@ -1,5 +1,6 @@
 package com.vestas.libraryManagement.dto.response;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 public class BookDTO {
     private Long id;
     private String isbn;
+    @NotBlank
     private String title;
     private BigDecimal price;
     private String author;

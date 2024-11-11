@@ -7,10 +7,12 @@ import com.vestas.libraryManagement.dto.response.BookBorrowHistoryDTO;
 import com.vestas.libraryManagement.dto.response.BookDTO;
 import com.vestas.libraryManagement.exception.BookNotFoundException;
 import com.vestas.libraryManagement.facade.LibraryFacade;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/books")
 @Slf4j
+@Validated
 public class BookController {
 
     @Autowired
@@ -34,7 +37,7 @@ public class BookController {
 
     @Secured("ROLE_OWNER")
     @PostMapping
-    public ResponseEntity<BookDTO> create(@RequestBody final CreateBookRequest request) {
+    public ResponseEntity<BookDTO> create(@RequestBody @Valid final CreateBookRequest request) {
         final var createdBook = libraryFacade.createBook(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -45,7 +48,7 @@ public class BookController {
 
     @Secured("ROLE_OWNER")
     @PutMapping("/{bookId}")
-    public ResponseEntity<BookDTO> update(@PathVariable final Long bookId, @RequestBody final CreateBookRequest request) throws BookNotFoundException {
+    public ResponseEntity<BookDTO> update(@PathVariable final Long bookId, @RequestBody @Valid final CreateBookRequest request) throws BookNotFoundException {
         return ResponseEntity.ok().body(libraryFacade.updateBook(bookId, request));
     }
 
