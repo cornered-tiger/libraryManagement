@@ -5,6 +5,9 @@ import org.modelmapper.internal.valueaccess.MapValueReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 public class LibraryManagementApplication {
@@ -20,5 +23,4 @@ public class LibraryManagementApplication {
 		mapper.getConfiguration().addValueReader(new MapValueReader());
 		return mapper;
 	}
-
 }
